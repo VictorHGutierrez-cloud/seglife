@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Comercial | [NOME DA EMPRESA]</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js para gráficos (opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 
+        ============================================
+        ESTILOS PERSONALIZADOS
+        ============================================
+        Personalize as cores principais aqui:
+        - Cor primária: #FF355E (vermelho/coral)
+        - Cor secundária: #07A2AD (teal/azul)
+        - Cor terciária: #FFB940 (amarelo/laranja)
+        - Cor neutra: #25253D (azul escuro)
+        */
+        
+        :root {
+            --color-primary: #FF355E;
+            --color-secondary: #07A2AD;
+            --color-tertiary: #FFB940;
+            --color-dark: #25253D;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Container para gráficos */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 45vh;
+            max-height: 450px;
+        }
+        
+        .chart-container-sm {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 350px;
+        }
+        
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 50vh;
+                max-height: 400px;
+            }
+        }
+        
+        /* Navegação */
+        .nav-link {
+            @apply px-3 py-2 rounded-md text-sm font-medium text-stone-600 hover:bg-stone-200 hover:text-stone-900 transition-colors;
+        }
+        
+        .nav-link.active {
+            @apply text-white hover:text-white;
+            background-color: var(--color-primary);
+        }
+        
+        .nav-link.active:hover {
+            background-color: #e02e52; /* Versão mais escura da cor primária */
+        }
+        
+        /* Tabs */
+        .tab-link {
+            @apply px-4 py-2 text-lg font-medium rounded-t-lg transition-colors duration-200;
+        }
+        
+        .tab-link.active {
+            @apply border-b-4 text-white;
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        
+        .tab-link:not(.active) {
+            @apply text-stone-500 hover:text-stone-800;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <!-- 
+    ============================================
+    HEADER / NAVEGAÇÃO
+    ============================================
+    Header fixo com navegação entre seções
+    -->
+    <header class="bg-white backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <!-- LOGO / TÍTULO: Personalize aqui -->
+                    <h1 class="text-xl font-bold" style="color: var(--color-primary);">
+                        [NOME DA SOLUÇÃO] <span class="text-stone-600">& [NOME DO CLIENTE]</span>
+                    </h1>
+                </div>
+                
+                <!-- Menu Desktop -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-4 sm:items-center">
+                    <a href="#resumo" class="nav-link active" data-nav-link>Resumo</a>
+                    <a href="#dores-solucoes" class="nav-link" data-nav-link>Dores & Soluções</a>
+                    <a href="#custos" class="nav-link" data-nav-link>Custos</a>
+                    <a href="#escopo" class="nav-link" data-nav-link>Escopo & Cronograma</a>
+                    <a href="#proximos-passos" class="nav-link" data-nav-link>Próximos Passos</a>
+                </div>
+                
+                <!-- Menu Mobile -->
+                <div class="sm:hidden flex items-center">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-stone-500 hover:text-stone-800 hover:bg-stone-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500">
+                        <span class="sr-only">Abrir menu principal</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Menu Mobile Expandido -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#resumo" class="block nav-link active" data-nav-link>Resumo</a>
+                <a href="#dores-solucoes" class="block nav-link" data-nav-link>Dores & Soluções</a>
+                <a href="#custos" class="block nav-link" data-nav-link>Custos</a>
+                <a href="#escopo" class="block nav-link" data-nav-link>Escopo & Cronograma</a>
+                <a href="#proximos-passos" class="block nav-link" data-nav-link>Próximos Passos</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 
+    ============================================
+    CONTEÚDO PRINCIPAL
+    ============================================
+    -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- 
+        ============================================
+        SEÇÃO 1: RESUMO EXECUTIVO
+        ============================================
+        Esta seção deve conter:
+        - Visão geral da proposta
+        - Números principais (investimento, economia, etc.)
+        - Cards destacados com informações-chave
+        -->
+        <section id="resumo" class="scroll-mt-20 mb-16">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Resumo Executivo e Impacto Financeiro</h2>
+            <p class="text-lg text-stone-600 mb-8">
+                <!-- DESCRIÇÃO GERAL: Personalize aqui -->
+                Esta é uma proposta para [DESCRIÇÃO DA PROPOSTA]. [RESUMO DO OBJETIVO E BENEFÍCIOS PRINCIPAIS].
+            </p>
+            
+            <!-- Cards de Destaque -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1: Investimento Mensal -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200 text-center">
+                    <h3 class="text-base font-medium text-stone-500 mb-2">Investimento Mensal (com desconto)</h3>
+                    <p class="text-5xl font-bold" style="color: var(--color-primary);">R$ [VALOR]</p>
+                    <p class="text-sm text-stone-600 mt-2">[NÚMERO] colaboradores</p>
+                </div>
+                
+                <!-- Card 2: Custo por Colaborador -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200 text-center">
+                    <h3 class="text-base font-medium text-stone-500 mb-2">Custo por Colaborador</h3>
+                    <p class="text-5xl font-bold" style="color: var(--color-secondary);">R$ [VALOR]</p>
+                    <p class="text-sm text-stone-600 mt-2">/ mês / vida (módulos variáveis)</p>
+                </div>
+                
+                <!-- Card 3: Economia -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200 text-center">
+                    <h3 class="text-base font-medium text-stone-500 mb-2">Economia com [PROMOÇÃO]</h3>
+                    <p class="text-5xl font-bold" style="color: var(--color-tertiary);">[%]%</p>
+                    <p class="text-sm text-stone-600 mt-2">+ Implementação Zerada + [BÔNUS]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ============================================
+        SEÇÃO 2: DORES E SOLUÇÕES
+        ============================================
+        Esta seção deve conter:
+        - Cada dor identificada na transcrição
+        - Solução correspondente para cada dor
+        - Layout lado a lado (dor vs solução)
+        -->
+        <section id="dores-solucoes" class="scroll-mt-20 mb-16">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Dores e Como Resolvemos</h2>
+            <p class="text-lg text-stone-600 mb-8">
+                Identificamos as principais dores da [NOME DA EMPRESA] e como [NOME DA SOLUÇÃO] resolve cada uma delas de forma prática e eficiente.
+            </p>
+
+            <div class="space-y-6">
+                <!-- 
+                TEMPLATE DE DOR/SOLUÇÃO
+                Copie este bloco para cada dor identificada
+                -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <div class="flex items-start mb-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4" style="background-color: var(--color-primary);">1</div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-stone-900 mb-3">[TÍTULO DA DOR]</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Coluna da Dor -->
+                                <div class="bg-red-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-primary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Dor:</h4>
+                                    <p class="text-stone-700 text-sm">[DESCRIÇÃO DO PROBLEMA IDENTIFICADO NA TRANSCRIÇÃO]</p>
+                                </div>
+                                
+                                <!-- Coluna da Solução -->
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-secondary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Como resolvemos:</h4>
+                                    <ul class="text-stone-700 text-sm space-y-1">
+                                        <li>• [SOLUÇÃO 1 - Extraída da transcrição]</li>
+                                        <li>• [SOLUÇÃO 2 - Extraída da transcrição]</li>
+                                        <li>• [SOLUÇÃO 3 - Extraída da transcrição]</li>
+                                        <li>• [SOLUÇÃO 4 - Extraída da transcrição]</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM DO TEMPLATE -->
+                
+                <!-- 
+                Adicione mais blocos de dor/solução aqui
+                Lembre-se de incrementar o número no círculo
+                -->
+            </div>
+        </section>
+
+        <!-- 
+        ============================================
+        SEÇÃO 3: CUSTOS
+        ============================================
+        Esta seção deve conter:
+        - Estrutura detalhada de custos
+        - Gráficos (opcional)
+        - Comparação com custos atuais
+        - Descontos aplicados
+        -->
+        <section id="custos" class="scroll-mt-20 mb-16">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Estrutura de Custos da [NOME DA SOLUÇÃO]</h2>
+            <p class="text-lg text-stone-600 mb-8">
+                Nossa precificação é transparente e escalável. Você paga apenas pelo que precisa, com a flexibilidade de ajustar conforme o crescimento da empresa.
+            </p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Gráfico de Custos (Opcional) -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <h3 class="text-2xl font-bold text-center mb-6">Composição do Custo Mensal</h3>
+                    <div class="chart-container-sm">
+                        <canvas id="priceBreakdownChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Cards de Informação -->
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-lg font-medium text-stone-500 mb-2">Custo Total Mensal (com desconto)</h3>
+                        <p class="text-3xl font-bold text-stone-800">R$ [VALOR]</p>
+                        <p class="text-sm text-stone-600">[NÚMERO] colaboradores</p>
+                    </div>
+                    
+                    <div class="text-white p-6 rounded-2xl shadow-lg" style="background-color: var(--color-primary);">
+                        <h3 class="text-lg font-medium mb-2" style="color: #f0f9ff;">[NOME DA PROMOÇÃO]</h3>
+                        <p class="text-4xl font-bold">[%]% OFF</p>
+                        <p class="text-lg font-medium" style="color: #f0f9ff;">+ Implementação Zerada + [BÔNUS]</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-lg font-medium text-stone-500 mb-2">Modelo Escalável</h3>
+                        <p class="text-xl font-bold text-stone-800">Por Vida</p>
+                        <p class="text-sm text-stone-600">Ajuste conforme crescimento</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalhamento de Custos -->
+            <div class="mt-8 bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                <h3 class="text-xl font-bold mb-4 text-center" style="color: var(--color-primary);">Detalhamento de Custos</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <!-- Item de Custo 1 -->
+                        <div class="flex justify-between items-center p-3 bg-stone-50 rounded-lg">
+                            <span class="font-medium text-stone-700">[DESCRIÇÃO DO CUSTO]</span>
+                            <span class="font-bold" style="color: var(--color-secondary);">R$ [VALOR]</span>
+                        </div>
+                        
+                        <!-- Detalhamento -->
+                        <div class="p-3 bg-stone-50 rounded-lg">
+                            <p class="text-xs text-stone-600 mb-1">[DETALHAMENTO DO QUE ESTÁ INCLUÍDO]</p>
+                            <p class="text-sm font-medium text-stone-700">R$ [VALOR UNITÁRIO] × [QUANTIDADE] colaboradores</p>
+                        </div>
+                        
+                        <!-- Item de Custo 2 -->
+                        <div class="flex justify-between items-center p-3 bg-stone-50 rounded-lg">
+                            <span class="font-medium text-stone-700">[DESCRIÇÃO DO CUSTO FIXO]</span>
+                            <span class="font-bold" style="color: var(--color-secondary);">R$ [VALOR]</span>
+                        </div>
+                        
+                        <!-- Total -->
+                        <div class="flex justify-between items-center p-3 bg-stone-100 rounded-lg border-2" style="border-color: var(--color-primary);">
+                            <span class="font-bold text-stone-800">Total sem desconto:</span>
+                            <span class="font-bold text-xl" style="color: var(--color-primary);">R$ [VALOR]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <!-- Box de Promoção -->
+                        <div class="p-4 rounded-lg" style="background-color: #f0f9ff; border: 2px solid var(--color-primary);">
+                            <p class="text-sm font-semibold text-stone-800 mb-2">[NOME DA PROMOÇÃO] - Condições Especiais:</p>
+                            <ul class="text-sm text-stone-600 space-y-1">
+                                <li>• [BENEFÍCIO 1]</li>
+                                <li>• [BENEFÍCIO 2]</li>
+                                <li>• [BENEFÍCIO 3]</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Box de Economia -->
+                        <div class="p-4 rounded-lg bg-green-50 border-l-4" style="border-color: var(--color-secondary);">
+                            <p class="font-semibold text-stone-800 mb-1">Economia com [PROMOÇÃO]:</p>
+                            <p class="text-2xl font-bold" style="color: var(--color-secondary);">R$ [VALOR]/mês</p>
+                            <p class="text-sm text-stone-600">+ R$ [VALOR] em implementação</p>
+                        </div>
+                        
+                        <!-- Box de Total Final -->
+                        <div class="p-4 rounded-lg bg-blue-50 border-l-4" style="border-color: var(--color-tertiary);">
+                            <p class="font-semibold text-stone-800 mb-1">Total com desconto:</p>
+                            <p class="text-3xl font-bold" style="color: var(--color-tertiary);">R$ [VALOR]</p>
+                            <p class="text-sm text-stone-600">Primeiro pagamento até [DATA]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ============================================
+        SEÇÃO 4: ESCOPO E CRONOGRAMA
+        ============================================
+        Esta seção deve conter:
+        - Módulos incluídos
+        - Descrição detalhada de cada módulo
+        - Fluxo de pagamento
+        - Cronograma executivo
+        -->
+        <section id="escopo" class="scroll-mt-20 mb-16">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Escopo & Cronograma de Implementação</h2>
+            <p class="text-lg text-stone-600 mb-8">
+                Esta proposta inclui um conjunto completo de módulos para [OBJETIVO DA PROPOSTA].
+            </p>
+            
+            <!-- Tabs de Navegação -->
+            <div class="border-b border-stone-300 mb-6">
+                <nav class="-mb-px flex space-x-4" aria-label="Tabs">
+                    <button class="tab-link active" data-tab-target="#tab-modulos">Módulos Incluídos</button>
+                    <button class="tab-link" data-tab-target="#tab-detalhado">Descritivo Detalhado</button>
+                    <button class="tab-link" data-tab-target="#tab-pagamentos">Fluxo de Pagamento</button>
+                    <button class="tab-link" data-tab-target="#tab-cronograma">Cronograma Executivo</button>
+                </nav>
+            </div>
+
+            <!-- Tab 1: Módulos Incluídos -->
+            <div id="tab-modulos" class="tab-panel">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Template de Card de Módulo -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">[NOME DO MÓDULO]</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>[Funcionalidade 1]</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>[Funcionalidade 2]</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>[Funcionalidade 3]</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>[Funcionalidade 4]</li>
+                        </ul>
+                    </div>
+                    <!-- FIM DO TEMPLATE -->
+                    
+                    <!-- Adicione mais cards de módulos aqui -->
+                </div>
+            </div>
+
+            <!-- Tab 2: Descritivo Detalhado -->
+            <div id="tab-detalhado" class="tab-panel hidden">
+                <div class="space-y-8">
+                    <!-- Template de Módulo Detalhado -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-6 text-center" style="color: var(--color-primary);">[NOME DO MÓDULO]</h3>
+                        <div class="prose max-w-none">
+                            <p class="text-lg text-stone-700 mb-6">
+                                <strong>[DESCRIÇÃO GERAL DO MÓDULO]:</strong>
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">[Funcionalidade 1]</h4>
+                                        <p class="text-stone-600 text-sm">[Descrição detalhada]</p>
+                                    </div>
+                                    <!-- Adicione mais funcionalidades aqui -->
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">[Funcionalidade 2]</h4>
+                                        <p class="text-stone-600 text-sm">[Descrição detalhada]</p>
+                                    </div>
+                                    <!-- Adicione mais funcionalidades aqui -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM DO TEMPLATE -->
+                </div>
+            </div>
+
+            <!-- Tab 3: Fluxo de Pagamento -->
+            <div id="tab-pagamentos" class="tab-panel hidden">
+                <div class="space-y-8">
+                    <!-- Estrutura de Cobrança -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-6 text-center" style="color: var(--color-primary);">Estrutura de Cobrança</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Card de Implementação -->
+                            <div class="text-center p-6 rounded-xl" style="background-color: #f0f9ff; border: 2px solid var(--color-primary);">
+                                <div class="text-4xl mb-4">💳</div>
+                                <h4 class="text-xl font-bold mb-2" style="color: var(--color-primary);">Implementação</h4>
+                                <p class="text-3xl font-bold mb-2" style="color: var(--color-primary);">R$ [VALOR]</p>
+                                <p class="text-stone-600">[CONDIÇÃO]</p>
+                            </div>
+                            
+                            <!-- Adicione mais cards de estrutura de cobrança -->
+                        </div>
+                    </div>
+                    
+                    <!-- Cronograma de Pagamentos -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-6 text-center" style="color: var(--color-secondary);">Cronograma de Pagamentos</h3>
+                        <div class="space-y-4">
+                            <!-- Item de Pagamento -->
+                            <div class="flex items-center justify-between p-4 rounded-lg" style="background-color: #f0f9ff; border-left: 4px solid var(--color-secondary);">
+                                <div>
+                                    <h4 class="font-semibold text-stone-800">[DATA]</h4>
+                                    <p class="text-sm text-stone-600">[DESCRIÇÃO DO PAGAMENTO]</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xl font-bold" style="color: var(--color-secondary);">R$ [VALOR]</p>
+                                    <p class="text-sm text-stone-600">[DETALHAMENTO]</p>
+                                </div>
+                            </div>
+                            <!-- Adicione mais itens de pagamento -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Cronograma Executivo -->
+            <div id="tab-cronograma" class="tab-panel hidden">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-200">
+                    <ol class="relative border-l border-stone-300">
+                        <!-- Template de Etapa do Cronograma -->
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-200 rounded-full -left-3 ring-8 ring-white">
+                                <span class="text-teal-700">1</span>
+                            </span>
+                            <h3 class="flex items-center mb-1 text-lg font-semibold text-stone-900">[NOME DA ETAPA]</h3>
+                            <time class="block mb-2 text-sm font-normal leading-none text-stone-500">[DATA]</time>
+                            <p class="text-base font-normal text-stone-600">[DESCRIÇÃO DA ETAPA]</p>
+                        </li>
+                        <!-- FIM DO TEMPLATE -->
+                        
+                        <!-- Adicione mais etapas aqui -->
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ============================================
+        SEÇÃO 5: PRÓXIMOS PASSOS
+        ============================================
+        Esta seção deve conter:
+        - Call to action principal
+        - Prazo para fechamento (se houver)
+        - Informações de contato
+        - Pessoas envolvidas
+        -->
+        <section id="proximos-passos" class="scroll-mt-20">
+            <div class="p-8 rounded-2xl shadow-2xl text-center" style="background-color: var(--color-primary);">
+                <h2 class="text-3xl font-bold text-white mb-4">Próximos Passos</h2>
+                <p class="text-lg mb-6 max-w-3xl mx-auto" style="color: #f0f9ff;">
+                    Para garantir [CONDIÇÃO ESPECIAL], a aprovação é necessária até <strong>[DATA LIMITE]</strong>.
+                </p>
+                
+                <!-- Card de Investimento -->
+                <div class="bg-white p-6 rounded-xl max-w-xl mx-auto">
+                    <h3 class="text-base font-medium text-stone-500 mb-1">Investimento Mensal (com desconto)</h3>
+                    <p class="text-3xl font-bold" style="color: var(--color-primary);">R$ [VALOR]</p>
+                    <p class="text-lg text-stone-700">[DESCRIÇÃO DA SOLUÇÃO]</p>
+                    <p class="text-sm text-stone-600 mt-2">Primeiro pagamento até [DATA]</p>
+                </div>
+                
+                <!-- Pessoas Envolvidas -->
+                <div class="mt-6 text-white">
+                    <p class="text-sm mb-2">Pessoas envolvidas no processo:</p>
+                    <p class="text-sm">[NOME 1] ([CARGO]) • [NOME 2] ([CARGO]) • [NOME 3] ([CARGO])</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 
+    ============================================
+    FOOTER
+    ============================================
+    -->
+    <footer class="text-center py-8 mt-12 border-t border-stone-200">
+        <p class="text-sm text-stone-500">Proposta Confidencial | Válida até [DATA]</p>
+    </footer>
+
+    <!-- 
+    ============================================
+    SCRIPTS JAVASCRIPT
+    ============================================
+    -->
+    <script>
+        // Aguarda o carregamento completo da página
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // ============================================
+            // GRÁFICOS (Opcional)
+            // ============================================
+            // Descomente e configure se precisar de gráficos
+            
+            /*
+            const currencyFormat = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            const breakdownCtx = document.getElementById('priceBreakdownChart');
+            if (breakdownCtx) {
+                new Chart(breakdownCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['[LABEL 1]', '[LABEL 2]'],
+                        datasets: [{
+                            label: 'Custo Mensal',
+                            data: [VALOR1, VALOR2],
+                            backgroundColor: ['var(--color-primary)', 'var(--color-secondary)'],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => `${context.label}: ${currencyFormat(context.parsed)}`
+                                }
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+            */
+
+            // ============================================
+            // TABS
+            // ============================================
+            const tabLinks = document.querySelectorAll('[data-tab-target]');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const target = document.querySelector(link.dataset.tabTarget);
+                    
+                    // Esconde todos os painéis
+                    tabPanels.forEach(panel => panel.classList.add('hidden'));
+                    
+                    // Mostra o painel selecionado
+                    if (target) {
+                        target.classList.remove('hidden');
+                    }
+                    
+                    // Atualiza estado ativo das tabs
+                    tabLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+
+            // ============================================
+            // NAVEGAÇÃO E MENU MOBILE
+            // ============================================
+            const navLinks = document.querySelectorAll('[data-nav-link]');
+            const sections = document.querySelectorAll('section');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            // Toggle menu mobile
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
+                });
+            }
+
+            // Fecha menu mobile ao clicar em um link
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        if (mobileMenuButton) {
+                            mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
+                        }
+                    }
+                });
+            });
+
+            // ============================================
+            // SCROLL SPY (Destaque da seção ativa)
+            // ============================================
+            const observerOptions = { 
+                root: null, 
+                rootMargin: '0px', 
+                threshold: 0.4 
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href');
+                            link.classList.toggle('active', href === `#${id}`);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            // Observa todas as seções
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
+

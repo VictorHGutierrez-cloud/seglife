@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Comercial | Factorial & SEGLife</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js para gráficos (opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-primary: #FF355E;
+            --color-secondary: #07A2AD;
+            --color-tertiary: #FFB940;
+            --color-dark: #25253D;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 45vh;
+            max-height: 450px;
+        }
+        
+        .chart-container-sm {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 350px;
+        }
+        
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 50vh;
+                max-height: 400px;
+            }
+        }
+        
+        .nav-link {
+            @apply px-3 py-2 rounded-md text-sm font-medium text-stone-600 hover:bg-stone-200 hover:text-stone-900 transition-colors;
+        }
+        
+        .nav-link.active {
+            @apply text-white hover:text-white;
+            background-color: var(--color-primary);
+        }
+        
+        .nav-link.active:hover {
+            background-color: #e02e52;
+        }
+        
+        .tab-link {
+            @apply px-4 py-2 text-lg font-medium rounded-t-lg transition-colors duration-200;
+        }
+        
+        .tab-link.active {
+            @apply border-b-4 text-white;
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        
+        .tab-link:not(.active) {
+            @apply text-stone-500 hover:text-stone-800;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <!-- HEADER / NAVEGAÇÃO -->
+    <header class="bg-white backdrop-blur-sm shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-xl font-bold" style="color: var(--color-primary);">
+                        Factorial <span class="text-stone-600">& SEGLife</span>
+                    </h1>
+                </div>
+                
+                <!-- Menu Desktop -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-4 sm:items-center">
+                    <a href="#resumo" class="nav-link active" data-nav-link>Resumo</a>
+                    <a href="#dores-solucoes" class="nav-link" data-nav-link>Dores & Soluções</a>
+                    <a href="#custos" class="nav-link" data-nav-link>Custos</a>
+                    <a href="#escopo" class="nav-link" data-nav-link>Escopo & Cronograma</a>
+                    <a href="#proximos-passos" class="nav-link" data-nav-link>Próximos Passos</a>
+                </div>
+                
+                <!-- Menu Mobile -->
+                <div class="sm:hidden flex items-center">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-stone-500 hover:text-stone-800 hover:bg-stone-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-500">
+                        <span class="sr-only">Abrir menu principal</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Menu Mobile Expandido -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#resumo" class="block nav-link active" data-nav-link>Resumo</a>
+                <a href="#dores-solucoes" class="block nav-link" data-nav-link>Dores & Soluções</a>
+                <a href="#custos" class="block nav-link" data-nav-link>Custos</a>
+                <a href="#escopo" class="block nav-link" data-nav-link>Escopo & Cronograma</a>
+                <a href="#proximos-passos" class="block nav-link" data-nav-link>Próximos Passos</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- SEÇÃO 1: RESUMO EXECUTIVO -->
+        <section id="resumo" class="scroll-mt-20 mb-16">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Resumo Executivo e Impacto Financeiro</h2>
+            <p class="text-lg text-stone-600 mb-8">
+                Esta proposta apresenta a solução Factorial para transformar a gestão de pessoas da SEGLife, 
+                eliminando processos manuais e automatizando avaliações de desempenho, desenvolvimento de talentos 
+                e gestão de projetos para seus <strong>1.000 colaboradores</strong>.
+            </p>
+            
+            <!-- Cards de Destaque -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1: Investimento Mensal -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200 text-center">
+                    <h3 class="text-base font-medium text-stone-500 mb-2">Investimento Mensal (com desconto)</h3>
+                    <p class="text-5xl font-bold" style="color: var(--color-primary);">R$ 16.387</p>
+                    <p class="text-sm text-stone-600 mt-2">1.000 colaboradores</p>
+                </div>
+                
+                <!-- Card 2: Custo por Colaborador -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200 text-center">
+                    <h3 class="text-base font-medium text-stone-500 mb-2">Custo por Colaborador</h3>
+                    <p class="text-5xl font-bold" style="color: var(--color-secondary);">R$ 21,20</p>
+                    <p class="text-sm text-stone-600 mt-2">/ mês / vida</p>
+                </div>
+                
+                <!-- Card 3: Benefícios -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200 text-center">
+                    <h3 class="text-base font-medium text-stone-500 mb-2">Economia Black Friday</h3>
+                    <p class="text-5xl font-bold" style="color: var(--color-tertiary);">25%</p>
+                    <p class="text-sm text-stone-600 mt-2">+ 1 ano Factorial ONE grátis</p>
+                </div>
+            </div>
+            
+            <!-- Vídeo Demonstrativo -->
+            <div class="mt-8 bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                <h3 class="text-xl font-bold mb-4 text-center" style="color: var(--color-primary);">Vídeo Demonstrativo</h3>
+                <div class="aspect-video max-w-4xl mx-auto">
+                    <iframe 
+                        class="w-full h-full rounded-lg" 
+                        src="https://www.youtube.com/embed/6sUn2w1hRv0" 
+                        title="Factorial - Demonstração" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: DORES E SOLUÇÕES -->
+        <section id="dores-solucoes" class="scroll-mt-20 mb-16">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Dores e Como Resolvemos</h2>
+            <p class="text-lg text-stone-600 mb-8">
+                Identificamos as principais dores da SEGLife e como a Factorial resolve cada uma delas de forma prática e eficiente.
+            </p>
+
+            <div class="space-y-6">
+                <!-- DOR 1: Falta de Sistema de Gestão de Desempenho -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <div class="flex items-start mb-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4" style="background-color: var(--color-primary);">1</div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-stone-900 mb-3">Falta de Sistema para Gestão de Desempenho</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Coluna da Dor -->
+                                <div class="bg-red-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-primary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Dor:</h4>
+                                    <p class="text-stone-700 text-sm mb-2">
+                                        Com <strong>1.000 colaboradores</strong>, não há como fazer avaliação de desempenho de forma manual, 
+                                        com papéis e planilhas. O trabalho seria gigantesco para apurar tudo isso.
+                                    </p>
+                                    <p class="text-stone-700 text-sm">
+                                        <strong>Citação:</strong> <em>"Em um cenário de mil colaboradores, não há como a gente fazer 
+                                        avaliação de desempenho, por exemplo, de forma manual, com papéis, planilhas, enfim. 
+                                        A gente teria um trabalho gigantesco para poder apurar tudo isso."</em>
+                                    </p>
+                                </div>
+                                
+                                <!-- Coluna da Solução -->
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-secondary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Como resolvemos:</h4>
+                                    <ul class="text-stone-700 text-sm space-y-1">
+                                        <li>• Avaliação de desempenho automatizada por competências (90° e 360°)</li>
+                                        <li>• Resposta de avaliações pelo celular - único sistema que permite isso</li>
+                                        <li>• Competências mapeadas por cargo, automatizando todo o processo</li>
+                                        <li>• Relatórios gerenciais automáticos com mapas de calor e análises por IA</li>
+                                        <li>• Ninebox automático para análise de talentos</li>
+                                        <li>• Exportação de dados para Excel/CSV para integração com BI</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOR 2: Sistema Atual Não Funciona -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <div class="flex items-start mb-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4" style="background-color: var(--color-primary);">2</div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-stone-900 mb-3">Sistema Atual (Datamace) Não Funciona</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Coluna da Dor -->
+                                <div class="bg-red-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-primary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Dor:</h4>
+                                    <p class="text-stone-700 text-sm mb-2">
+                                        O sistema Datamace não funciona. Tudo que é implantado para. Foi necessário abrir muitos chamados, 
+                                        acompanhar, fazer reuniões e cobrar soluções. Foi muito desgastante.
+                                    </p>
+                                    <p class="text-stone-700 text-sm">
+                                        <strong>Citação:</strong> <em>"A data massa, ela não funciona. Então, tudo que a gente implanta, 
+                                        a gente para. Vamos plantar o faturamento? Para. Vamos plantar o financeiro? Para. 
+                                        Vamos plantar benefícios? Para. Tudo para, porque não funciona."</em>
+                                    </p>
+                                </div>
+                                
+                                <!-- Coluna da Solução -->
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-secondary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Como resolvemos:</h4>
+                                    <ul class="text-stone-700 text-sm space-y-1">
+                                        <li>• Sistema estável e consolidado, usado em 70 países</li>
+                                        <li>• Acompanhamento eterno com gerente de contas dedicado</li>
+                                        <li>• Trilha completa de implementação com suporte especializado</li>
+                                        <li>• Testes disponíveis antes da contratação</li>
+                                        <li>• Trabalho por recorrência - nosso sucesso depende do seu sucesso</li>
+                                        <li>• Suporte técnico responsivo e proativo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOR 3: Falta de Automação e Relatórios -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <div class="flex items-start mb-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4" style="background-color: var(--color-primary);">3</div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-stone-900 mb-3">Falta de Automação Real e Relatórios Gerenciais</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Coluna da Dor -->
+                                <div class="bg-red-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-primary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Dor:</h4>
+                                    <p class="text-stone-700 text-sm mb-2">
+                                        Necessidade de indicadores, relatórios e dashboards. O sistema atual ensinou aritmética 
+                                        no treinamento - é preciso fazer contas manualmente para chegar nos percentuais.
+                                    </p>
+                                    <p class="text-stone-700 text-sm">
+                                        <strong>Citação:</strong> <em>"Eu tentei implantar avaliação de desempenho e eles me ensinaram 
+                                        aritmética no treinamento. Eu falei, eu não tenho que fazer conta para chegar no percentual de 
+                                        quanto porcento que deu essa avaliação aqui, não é sobre isso. Hoje em dia tem inteligência 
+                                        artificial para tudo."</em>
+                                    </p>
+                                </div>
+                                
+                                <!-- Coluna da Solução -->
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-secondary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Como resolvemos:</h4>
+                                    <ul class="text-stone-700 text-sm space-y-1">
+                                        <li>• IA própria (Factorial One) - não é integração com GPT/Gemini</li>
+                                        <li>• Relatórios automáticos com cálculos instantâneos</li>
+                                        <li>• Dashboards gerenciais com filtros por equipe, gerente, área</li>
+                                        <li>• Análises de IA por equipe e individuais</li>
+                                        <li>• Mapas de calor automáticos de competências</li>
+                                        <li>• Exportação para Excel/CSV para integração com BI próprio</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOR 4: Falta de PDI e Universidade Corporativa -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <div class="flex items-start mb-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4" style="background-color: var(--color-primary);">4</div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-stone-900 mb-3">Falta de PDI Estruturado e Universidade Corporativa</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Coluna da Dor -->
+                                <div class="bg-red-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-primary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Dor:</h4>
+                                    <p class="text-stone-700 text-sm mb-2">
+                                        Não há plano de desenvolvimento individual estruturado e não existe universidade corporativa. 
+                                        Os processos são informais ou feitos em Excel.
+                                    </p>
+                                    <p class="text-stone-700 text-sm">
+                                        <strong>Citação:</strong> <em>"Não possibilita a gestão de desempenho, a gente não tem lá um 
+                                        plano de desenvolvimento individual, não tem uma universidade corporativa, enfim. 
+                                        A gente está bem fobrando de ferramentas."</em>
+                                    </p>
+                                </div>
+                                
+                                <!-- Coluna da Solução -->
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-secondary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Como resolvemos:</h4>
+                                    <ul class="text-stone-700 text-sm space-y-1">
+                                        <li>• PDI estruturado vinculado às avaliações de desempenho</li>
+                                        <li>• Planos de ação automáticos com metas e objetivos</li>
+                                        <li>• LMS completo para criação de trilhas de aprendizado</li>
+                                        <li>• Criação de treinamentos próprios com vídeos, PDFs e quizzes</li>
+                                        <li>• Acompanhamento de evolução de objetivos e metas</li>
+                                        <li>• Assinatura digital de PDIs com validade jurídica</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOR 5: Falta de Gestão de Projetos e Tarefas -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <div class="flex items-start mb-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4" style="background-color: var(--color-primary);">5</div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-stone-900 mb-3">Falta de Gestão de Projetos e Tarefas</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Coluna da Dor -->
+                                <div class="bg-red-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-primary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Dor:</h4>
+                                    <p class="text-stone-700 text-sm mb-2">
+                                        Não há sistema para gestão de tarefas e projetos. Com margens apertadas no segmento de serviços, 
+                                        é necessário identificar contratos rentáveis e gaps operacionais.
+                                    </p>
+                                    <p class="text-stone-700 text-sm">
+                                        <strong>Citação:</strong> <em>"Hoje a gente também não tem um sistema que faz gestão de tarefas, né? 
+                                        Nosso segmento de serviços, ele é bastante delicado porque as margens são margens bem apertadas e se 
+                                        você não tem uma gestão eficiente da operação, de suprimentos, você perde ali toda a rentabilidade do contrato."</em>
+                                    </p>
+                                </div>
+                                
+                                <!-- Coluna da Solução -->
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4" style="border-color: var(--color-secondary);">
+                                    <h4 class="font-semibold text-stone-800 mb-2">Como resolvemos:</h4>
+                                    <ul class="text-stone-700 text-sm space-y-1">
+                                        <li>• Gestão completa de projetos com alocação de horas-homem</li>
+                                        <li>• Gestão de tarefas para qualquer escopo (onboarding, PDI, reciclagem, etc.)</li>
+                                        <li>• Gestão de despesas em projetos com leitura de cupons por IA</li>
+                                        <li>• Controle de custos e lucro por projeto em tempo real</li>
+                                        <li>• Alertas quando projetos estão dando negativo</li>
+                                        <li>• Relatórios de evolução de horas e custos por pessoa</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: CUSTOS -->
+        <section id="custos" class="scroll-mt-20 mb-16">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Estrutura de Custos da Factorial</h2>
+            <p class="text-lg text-stone-600 mb-8">
+                Nossa precificação é transparente e escalável. Você paga apenas pelo que precisa, com a flexibilidade de ajustar conforme o crescimento da empresa.
+            </p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Gráfico de Custos (Opcional) -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <h3 class="text-2xl font-bold text-center mb-6">Composição do Custo Mensal</h3>
+                    <div class="chart-container-sm">
+                        <canvas id="priceBreakdownChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Cards de Informação -->
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-lg font-medium text-stone-500 mb-2">Custo Total Mensal (com desconto)</h3>
+                        <p class="text-3xl font-bold text-stone-800">R$ 16.387</p>
+                        <p class="text-sm text-stone-600">1.000 colaboradores</p>
+                    </div>
+                    
+                    <div class="text-white p-6 rounded-2xl shadow-lg" style="background-color: var(--color-primary);">
+                        <h3 class="text-lg font-medium mb-2" style="color: #f0f9ff;">Black Friday</h3>
+                        <p class="text-4xl font-bold">25% OFF</p>
+                        <p class="text-lg font-medium" style="color: #f0f9ff;">+ 1 ano Factorial ONE grátis</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-lg font-medium text-stone-500 mb-2">Modelo Escalável</h3>
+                        <p class="text-xl font-bold text-stone-800">Por Vida</p>
+                        <p class="text-sm text-stone-600">Ajuste conforme crescimento</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalhamento de Custos -->
+            <div class="mt-8 bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                <h3 class="text-xl font-bold mb-4 text-center" style="color: var(--color-primary);">Detalhamento de Custos</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <!-- Item de Custo 1 -->
+                        <div class="flex justify-between items-center p-3 bg-stone-50 rounded-lg">
+                            <span class="font-medium text-stone-700">Base Factorial + Desempenho + Pesquisas + Gestão de Treinamentos</span>
+                            <span class="font-bold" style="color: var(--color-secondary);">R$ 21.200</span>
+                        </div>
+                        
+                        <!-- Detalhamento -->
+                        <div class="p-3 bg-stone-50 rounded-lg">
+                            <p class="text-xs text-stone-600 mb-1">Inclui: Avaliação de Desempenho, PDI, Pesquisa de Clima, One-on-One, Ninebox, LMS, Objetivos e Metas</p>
+                            <p class="text-sm font-medium text-stone-700">R$ 21,20 × 1.000 colaboradores</p>
+                        </div>
+                        
+                        <!-- Item de Custo 2 -->
+                        <div class="flex justify-between items-center p-3 bg-stone-50 rounded-lg">
+                            <span class="font-medium text-stone-700">Recrutamento (fixo)</span>
+                            <span class="font-bold" style="color: var(--color-secondary);">R$ 650</span>
+                        </div>
+                        
+                        <!-- Total -->
+                        <div class="flex justify-between items-center p-3 bg-stone-100 rounded-lg border-2" style="border-color: var(--color-primary);">
+                            <span class="font-bold text-stone-800">Total sem desconto:</span>
+                            <span class="font-bold text-xl" style="color: var(--color-primary);">R$ 21.850</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <!-- Box de Promoção -->
+                        <div class="p-4 rounded-lg" style="background-color: #f0f9ff; border: 2px solid var(--color-primary);">
+                            <p class="text-sm font-semibold text-stone-800 mb-2">Black Friday - Condições Especiais:</p>
+                            <ul class="text-sm text-stone-600 space-y-1">
+                                <li>• 25% de desconto em 12 meses</li>
+                                <li>• 1 ano de Factorial ONE grátis</li>
+                                <li>• Condições especiais para empresas deste porte</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Box de Economia -->
+                        <div class="p-4 rounded-lg bg-green-50 border-l-4" style="border-color: var(--color-secondary);">
+                            <p class="font-semibold text-stone-800 mb-1">Economia com Black Friday:</p>
+                            <p class="text-2xl font-bold" style="color: var(--color-secondary);">R$ 5.463/mês</p>
+                            <p class="text-sm text-stone-600">+ 1 ano de Factorial ONE grátis</p>
+                        </div>
+                        
+                        <!-- Box de Total Final -->
+                        <div class="p-4 rounded-lg bg-blue-50 border-l-4" style="border-color: var(--color-tertiary);">
+                            <p class="font-semibold text-stone-800 mb-1">Total com desconto:</p>
+                            <p class="text-3xl font-bold" style="color: var(--color-tertiary);">R$ 16.387</p>
+                            <p class="text-sm text-stone-600">Válido para os primeiros 12 meses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: ESCOPO E CRONOGRAMA -->
+        <section id="escopo" class="scroll-mt-20 mb-16">
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Escopo & Cronograma de Implementação</h2>
+            <p class="text-lg text-stone-600 mb-8">
+                Esta proposta inclui um conjunto completo de módulos para transformar a gestão de pessoas e projetos da SEGLife.
+            </p>
+            
+            <!-- Tabs de Navegação -->
+            <div class="border-b border-stone-300 mb-6">
+                <nav class="-mb-px flex space-x-4" aria-label="Tabs">
+                    <button class="tab-link active" data-tab-target="#tab-modulos">Módulos Incluídos</button>
+                    <button class="tab-link" data-tab-target="#tab-detalhado">Descritivo Detalhado</button>
+                    <button class="tab-link" data-tab-target="#tab-cronograma">Cronograma Executivo</button>
+                </nav>
+            </div>
+
+            <!-- Tab 1: Módulos Incluídos -->
+            <div id="tab-modulos" class="tab-panel">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Módulo: Avaliação de Desempenho -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">Avaliação de Desempenho</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Avaliação por competências (90° e 360°)</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Resposta pelo celular</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Competências por cargo</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Relatórios automáticos</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Análises por IA</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Módulo: PDI -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">Plano de Desenvolvimento Individual</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>PDI estruturado</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Planos de ação</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Vinculação com objetivos</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Assinatura digital</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Acompanhamento de evolução</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Módulo: Pesquisa de Clima -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">Pesquisa de Clima</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>100% anônima</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Resposta pelo celular</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Análises por equipe</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>NPS integrado</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Relatórios automáticos</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Módulo: One-on-One -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">One-on-One</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Reuniões estruturadas</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Gravação e transcrição</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Chat com IA para resumos</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Integração com agenda</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Notas privadas</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Módulo: Gestão de Projetos -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">Gestão de Projetos</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Alocação de horas-homem</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Gestão de despesas</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Controle de custos e lucro</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Alertas de rentabilidade</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Relatórios por projeto</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Módulo: Gestão de Tarefas -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">Gestão de Tarefas</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Tarefas para qualquer escopo</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Fluxos personalizados</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Onboarding automatizado</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Offboarding estruturado</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Tarefas com documentos e vídeos</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Módulo: Treinamentos -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">Treinamentos (LMS)</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>LMS completo</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Trilhas de aprendizado</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Criação de treinamentos próprios</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Vídeos, PDFs e quizzes</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Acompanhamento de conclusão</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Módulo: Objetivos -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">Objetivos e Metas</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Objetivos por ciclo</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Metas por departamento</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Acompanhamento de progresso</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Gráficos de evolução</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Vinculação com PDI</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Módulo: Ninebox -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                        <h4 class="text-xl font-bold mb-3 text-center" style="color: var(--color-primary);">Ninebox</h4>
+                        <ul class="space-y-2 text-stone-600">
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Análise automática de talentos</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Filtros por equipe/área</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Identificação de destaques</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Análises por IA</li>
+                            <li class="flex items-start"><span class="mr-2" style="color: var(--color-primary);">✓</span>Relatórios gerenciais</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Descritivo Detalhado -->
+            <div id="tab-detalhado" class="tab-panel hidden">
+                <div class="space-y-8">
+                    <!-- Avaliação de Desempenho Detalhada -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-6 text-center" style="color: var(--color-primary);">Avaliação de Desempenho</h3>
+                        <div class="prose max-w-none">
+                            <p class="text-lg text-stone-700 mb-6">
+                                <strong>Sistema completo de avaliação automatizada:</strong>
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Avaliação por Competências</h4>
+                                        <p class="text-stone-600 text-sm">Competências já mapeadas por cargo são automaticamente aplicadas. Suporta avaliação 90° (gestor avalia colaborador) e 360° (avaliação completa).</p>
+                                    </div>
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Resposta pelo Celular</h4>
+                                        <p class="text-stone-600 text-sm">Único sistema de RH que permite responder avaliações diretamente pelo celular, aumentando a aderência e facilitando o processo.</p>
+                                    </div>
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Lembretes Automáticos</h4>
+                                        <p class="text-stone-600 text-sm">Sistema envia lembretes automáticos quando a avaliação é lançada e quando está se aproximando do prazo de conclusão.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Relatórios Automáticos</h4>
+                                        <p class="text-stone-600 text-sm">Mapas gerenciais por gerente, equipe ou área. Mapas de calor de competências. Filtros avançados para identificar destaques e áreas de melhoria.</p>
+                                    </div>
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Análises por IA (Factorial One)</h4>
+                                        <p class="text-stone-600 text-sm">IA própria da Factorial gera resumos automáticos por equipe e individuais, sugerindo ações e identificando padrões de desempenho.</p>
+                                    </div>
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Exportação de Dados</h4>
+                                        <p class="text-stone-600 text-sm">Todos os dados podem ser exportados para Excel ou CSV para integração com BI próprio da empresa.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gestão de Projetos Detalhada -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-6 text-center" style="color: var(--color-primary);">Gestão de Projetos e Tarefas</h3>
+                        <div class="prose max-w-none">
+                            <p class="text-lg text-stone-700 mb-6">
+                                <strong>Solução completa para gestão de projetos e controle de custos:</strong>
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Alocação de Horas-Homem</h4>
+                                        <p class="text-stone-600 text-sm">Registro de horas trabalhadas por projeto, com subprojetos e tarefas. Controle completo de alocação de recursos.</p>
+                                    </div>
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Gestão de Despesas</h4>
+                                        <p class="text-stone-600 text-sm">Colaborador tira foto do cupom, IA lê automaticamente e aloca a despesa no projeto correto. Controle completo de custos.</p>
+                                    </div>
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Controle de Rentabilidade</h4>
+                                        <p class="text-stone-600 text-sm">Sistema calcula automaticamente custo horário, custo de despesas e compara com orçamento. Alerta quando projeto está dando negativo.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Gestão de Tarefas</h4>
+                                        <p class="text-stone-600 text-sm">Tarefas para qualquer escopo: onboarding, offboarding, reciclagem, licença maternidade. Fluxos personalizados com documentos e vídeos.</p>
+                                    </div>
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Onboarding Digital</h4>
+                                        <p class="text-stone-600 text-sm">Link enviado para novo colaborador fazer tudo de casa: preencher dados, assinar contratos digitalmente, ver vídeos de endomarketing, receber tarefas automatizadas.</p>
+                                    </div>
+                                    <div class="border-l-4 pl-4" style="border-color: var(--color-primary);">
+                                        <h4 class="font-semibold text-stone-800">Relatórios de Projetos</h4>
+                                        <p class="text-stone-600 text-sm">Evolução de horas por pessoa, progresso de custos, identificação de contratos rentáveis e não rentáveis.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Cronograma Executivo -->
+            <div id="tab-cronograma" class="tab-panel hidden">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-200">
+                    <h3 class="text-2xl font-bold mb-6 text-center" style="color: var(--color-primary);">Cronograma de Implementação</h3>
+                    <ol class="relative border-l border-stone-300">
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-200 rounded-full -left-3 ring-8 ring-white">
+                                <span class="text-teal-700">1</span>
+                            </span>
+                            <h3 class="flex items-center mb-1 text-lg font-semibold text-stone-900">Envio da Proposta</h3>
+                            <time class="block mb-2 text-sm font-normal leading-none text-stone-500">Imediato</time>
+                            <p class="text-base font-normal text-stone-600">Envio da proposta detalhada com valores e condições especiais por e-mail.</p>
+                        </li>
+                        
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-200 rounded-full -left-3 ring-8 ring-white">
+                                <span class="text-teal-700">2</span>
+                            </span>
+                            <h3 class="flex items-center mb-1 text-lg font-semibold text-stone-900">Reunião de Alinhamento</h3>
+                            <time class="block mb-2 text-sm font-normal leading-none text-stone-500">Dia 21 (conforme agendado)</time>
+                            <p class="text-base font-normal text-stone-600">Reunião para discutir proposta, esclarecer dúvidas e alinhar expectativas.</p>
+                        </li>
+                        
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-200 rounded-full -left-3 ring-8 ring-white">
+                                <span class="text-teal-700">3</span>
+                            </span>
+                            <h3 class="flex items-center mb-1 text-lg font-semibold text-stone-900">Fechamento do Contrato</h3>
+                            <time class="block mb-2 text-sm font-normal leading-none text-stone-500">Após aprovação</time>
+                            <p class="text-base font-normal text-stone-600">Assinatura do contrato e início da trilha de implementação.</p>
+                        </li>
+                        
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-200 rounded-full -left-3 ring-8 ring-white">
+                                <span class="text-teal-700">4</span>
+                            </span>
+                            <h3 class="flex items-center mb-1 text-lg font-semibold text-stone-900">Trilha de Implementação</h3>
+                            <time class="block mb-2 text-sm font-normal leading-none text-stone-500">Conforme cronograma acordado</time>
+                            <p class="text-base font-normal text-stone-600">Implementação completa com gerente de contas dedicado, incluindo: migração de dados, configuração de competências, treinamentos e go-live.</p>
+                        </li>
+                        
+                        <li class="mb-10 ml-6">
+                            <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-200 rounded-full -left-3 ring-8 ring-white">
+                                <span class="text-teal-700">5</span>
+                            </span>
+                            <h3 class="flex items-center mb-1 text-lg font-semibold text-stone-900">Go-Live e Acompanhamento</h3>
+                            <time class="block mb-2 text-sm font-normal leading-none text-stone-500">Pós-implementação</time>
+                            <p class="text-base font-normal text-stone-600">Acompanhamento contínuo com gerente de contas dedicado para garantir sucesso da implementação.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: PRÓXIMOS PASSOS -->
+        <section id="proximos-passos" class="scroll-mt-20">
+            <div class="p-8 rounded-2xl shadow-2xl text-center" style="background-color: var(--color-primary);">
+                <h2 class="text-3xl font-bold text-white mb-4">Próximos Passos</h2>
+                <p class="text-lg mb-6 max-w-3xl mx-auto" style="color: #f0f9ff;">
+                    Para aproveitar as condições especiais da Black Friday e garantir condições diferenciadas, 
+                    a proposta detalhada será enviada por e-mail ainda hoje.
+                </p>
+                
+                <!-- Card de Investimento -->
+                <div class="bg-white p-6 rounded-xl max-w-xl mx-auto">
+                    <h3 class="text-base font-medium text-stone-500 mb-1">Investimento Mensal (com desconto)</h3>
+                    <p class="text-3xl font-bold" style="color: var(--color-primary);">R$ 16.387</p>
+                    <p class="text-lg text-stone-700 mt-2">Base Factorial + Desempenho + Pesquisas + Gestão de Treinamentos + Recrutamento</p>
+                    <p class="text-sm text-stone-600 mt-2">25% OFF em 12 meses + 1 ano Factorial ONE grátis</p>
+                </div>
+                
+                <!-- Pessoas Envolvidas -->
+                <div class="mt-6 text-white">
+                    <p class="text-sm mb-2">Pessoas envolvidas no processo:</p>
+                    <p class="text-sm">Renata Amorim (Gestora RH e Operações) • Victor Gutierrez (Factorial - Gerente de Expansão)</p>
+                </div>
+                
+                <!-- Informações Adicionais -->
+                <div class="mt-6 text-white text-sm">
+                    <p class="mb-2">📅 Reunião de follow-up agendada para dia 21</p>
+                    <p>📧 Proposta será enviada ainda hoje por e-mail</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-8 mt-12 border-t border-stone-200">
+        <p class="text-sm text-stone-500">Proposta Confidencial | Factorial & SEGLife</p>
+    </footer>
+
+    <!-- SCRIPTS JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // GRÁFICO DE CUSTOS
+            const currencyFormat = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            const breakdownCtx = document.getElementById('priceBreakdownChart');
+            if (breakdownCtx) {
+                new Chart(breakdownCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Base + Desempenho + Pesquisas + Treinamentos', 'Recrutamento'],
+                        datasets: [{
+                            label: 'Custo Mensal',
+                            data: [21200, 650],
+                            backgroundColor: ['var(--color-primary)', 'var(--color-secondary)'],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => `${context.label}: ${currencyFormat(context.parsed)}`
+                                }
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // TABS
+            const tabLinks = document.querySelectorAll('[data-tab-target]');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const target = document.querySelector(link.dataset.tabTarget);
+                    
+                    tabPanels.forEach(panel => panel.classList.add('hidden'));
+                    
+                    if (target) {
+                        target.classList.remove('hidden');
+                    }
+                    
+                    tabLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+
+            // NAVEGAÇÃO E MENU MOBILE
+            const navLinks = document.querySelectorAll('[data-nav-link]');
+            const sections = document.querySelectorAll('section');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        if (mobileMenuButton) {
+                            mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
+                        }
+                    }
+                });
+            });
+
+            // SCROLL SPY
+            const observerOptions = { 
+                root: null, 
+                rootMargin: '0px', 
+                threshold: 0.4 
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href');
+                            link.classList.toggle('active', href === `#${id}`);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
+
