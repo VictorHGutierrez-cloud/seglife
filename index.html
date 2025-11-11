@@ -757,7 +757,7 @@
                 <h2 class="text-3xl font-bold text-white mb-4">Próximos Passos</h2>
                 <p class="text-lg mb-6 max-w-3xl mx-auto" style="color: #f0f9ff;">
                     Para aproveitar as condições especiais da Black Friday e garantir condições diferenciadas, 
-                    a proposta detalhada será enviada por e-mail ainda hoje.
+                    a proposta deve ser analisada até final de novembro.
                 </p>
                 
                 <!-- Card de Investimento -->
@@ -776,8 +776,7 @@
                 
                 <!-- Informações Adicionais -->
                 <div class="mt-6 text-white text-sm">
-                    <p class="mb-2">📅 Reunião de follow-up agendada para dia 21</p>
-                    <p>📧 Proposta será enviada ainda hoje por e-mail</p>
+                    <p class="mb-2">📅 Reunião de follow-up agendada para dia 21</p>                  
                 </div>
             </div>
         </section>
@@ -805,7 +804,9 @@
                         datasets: [{
                             label: 'Custo Mensal',
                             data: [21200, 650],
-                            backgroundColor: ['var(--color-primary)', 'var(--color-secondary)'],
+                            backgroundColor: ['#FF355E', '#07A2AD'],
+                            borderColor: ['#FF355E', '#07A2AD'],
+                            borderWidth: 2,
                             hoverOffset: 4
                         }]
                     },
@@ -819,7 +820,13 @@
                                 }
                             },
                             legend: {
-                                position: 'bottom'
+                                position: 'bottom',
+                                labels: {
+                                    padding: 15,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
                             }
                         }
                     }
